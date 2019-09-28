@@ -1,8 +1,3 @@
-<?php 
-    // koneksi ke localhost
-    include("koneksi.php");
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,7 +11,7 @@
     <br>
 
     <form action="" method="post">
-        <input type="text" name="keyword" autofocus autocomplete="off">
+        <input type="text" name="keyword" autofocus autocomplete="off" placeholder="Masukan keyword pencarian" size="40">
         <button type="submit" name="cari">Cari</button>
     </form> <br>
     
@@ -41,18 +36,18 @@
             if( isset($_POST["cari"])) {
                 $keyword = "$_POST[keyword]";
                 
-                $query = "SELECT * FROM tb_kelas WHERE nis LIKE '%$keyword%' OR 
-                                                        nama LIKE '%$keyword%' OR
-                                                        jurusan LIKE '%$keyword%' OR
-                                                        alamat LIKE '%$keyword%' ";
+                $query = "SELECT * FROM tb_siswa WHERE nis LIKE '%$keyword%' OR 
+                                                       nama LIKE '%$keyword%' OR
+                                                       jurusan LIKE '%$keyword%' OR
+                                                       alamat LIKE '%$keyword%' ";
                 $ambil_data = mysqli_query($conn, $query);
             } else {
                 
-                $query = "SELECT * FROM tb_kelas";
+                $query = "SELECT * FROM tb_siswa";
                 $ambil_data = mysqli_query($conn, $query);
             }
 
-            // menampilkan data menggunakan while
+            // menampilkan data menggunakan while mysqli_fetch_assoc
             while( $fetch = mysqli_fetch_assoc($ambil_data)) :
         ?>
                 <tr>
@@ -62,13 +57,41 @@
                     <td> <?= $fetch['alamat'] ?> </td>
                     <td> <?= $fetch['jurusan'] ?> </td>
                     <td>
-                        <a href="hapus.php?id=<?= $fetch['id'] ;?>" onclick="return confirm('Yakin akan menghapus?');">Hapus</a>
+                        <a href="hapus.php?id=<?= $fetch['id'] ;?>" onclick="return confirm('Yakin akan menghapus?');">Delete</a>
                         <a href="update.php?id=<?=$fetch['id'] ;?>">Update</a>
                     </td>
                 </tr>
                 
         <?php endwhile; ?> 
     
+    </table> <br> <br>
+
+    <table border="1">
+        <tr>
+            <th>No</th>
+            <th>Nama mapel</th>
+            <th>Nama guru</th>
+            <th>Aksi</th>
+        </tr>
+
+        <?php  
+            $nomer = 1;
+            $query = "SELECT * FROM tb_mapel INNER JOIN tb_guru ON tb_mapel.id_guru = tb_guru.id_guru";
+            $join = mysqli_query($conn,$query);
+
+            while($fetch = mysqli_fetch_array($join)) : ?>
+                <tr>
+                    <td> <?= $nomer++; ?></td>
+                    <td> <?= $fetch['nama_mapel']; ?></td> 
+                    <td> <?= $fetch['nama_guru']; ?></td>
+                    <td>
+                        <a href="">Delete</a>
+                        <a href="">Update</a>
+                    </td>
+                </tr>
+            <?php endwhile ; 
+        ?>
+
     </table>
 </body>
 </html>

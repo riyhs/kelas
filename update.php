@@ -19,7 +19,7 @@
         $id = $_GET['id'];
 
         // ambil data dimana id = id yg dikirim dari home.php
-        $query = "SELECT * FROM tb_kelas WHERE id = $id";
+        $query = "SELECT * FROM tb_siswa WHERE id = $id";
         $ambil_data = mysqli_query($conn, $query);
 
         $fetch = mysqli_fetch_array($ambil_data);
@@ -54,7 +54,7 @@
                 $password_u = htmlspecialchars($_POST['password_u']);
                 $username_u = htmlspecialchars($_POST['username_u']);
 
-                $update = "UPDATE tb_kelas
+                $update = "UPDATE tb_siswa
                         SET nis = '$nis_u', nama = '$nama_u', alamat = '$alamat_u', jurusan = '$jurusan_u', username = '$username_u', password = '$password_u'
                         WHERE id = $id";
 

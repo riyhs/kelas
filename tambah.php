@@ -20,7 +20,7 @@
         
         <input type="submit" name="daftar" value="daftar">
         <br> <br>
-        <a href="home.php">Kembali ke halaman awal</a>
+        <a href="index.php">Kembali ke halaman awal</a>
         
         <?php
 
@@ -37,7 +37,7 @@
 
 
                 // cek baris dalam database berdasar dari input
-                $query = "INSERT INTO tb_kelas VALUES (NULL, '$nis', '$nama', '$alamat', '$jurusan', '$username', '$password')";
+                $query = "INSERT INTO tb_siswa VALUES (NULL, '$nis', '$nama', '$alamat', '$jurusan', '$username', '$password')";
                 $tambah = mysqli_query($conn, $query);
 
                 if($tambah){ ?>
